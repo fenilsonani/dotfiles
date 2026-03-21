@@ -15,6 +15,7 @@ My developer config files, managed with [GNU Stow](https://www.gnu.org/software/
 | `karabiner` | Keyboard remapping |
 | `zed` | Zed editor settings |
 | `btop` | System monitor config |
+| `claude` | Claude Code settings & global instructions |
 
 ## Install
 
