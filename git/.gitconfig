@@ -1,0 +1,24 @@
+[user]
+	name = Fenil Sonani
+	email = 107786545+fenilsonani@users.noreply.github.com
+	signingkey = 817B7AF541F90AB9
+[credential "https://github.com"]
+	helper = 
+	helper = !/opt/homebrew/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/opt/homebrew/bin/gh auth git-credential
+[commit]
+	gpgsign = true
+[coderabbit]
+	machineId = cli/7d7cb18ac51a4958b6125b168f180441
+[gitbutler]
+	aiModelProvider = anthropic
+	diffLengthLimit = 50000
+[core]
+	excludesfile = /Users/fenilsonani/.gitignore_global
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
