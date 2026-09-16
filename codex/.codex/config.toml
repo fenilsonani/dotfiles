@@ -1,0 +1,180 @@
+notify = [
+    "/Users/fenilsonani/.codex/computer-use/Codex Computer Use.app/Contents/SharedSupport/SkyComputerUseClient.app/Contents/MacOS/SkyComputerUseClient",
+    "turn-ended",
+]
+model_reasoning_effort = "medium"
+check_for_update_on_startup = true
+approval_policy = "never"
+approvals_reviewer = "user"
+sandbox_mode = "danger-full-access"
+service_tier = "default"
+model = "gpt-5.6-luna"
+
+[agents]
+default_subagent_model = "gpt-5.6-luna"
+default_subagent_reasoning_effort = "medium"
+max_concurrent_threads_per_session = 6
+
+[marketplaces.openai-bundled]
+source_type = "local"
+source = "/Users/fenilsonani/.codex/.tmp/bundled-marketplaces/openai-bundled"
+
+[marketplaces.claude-plugins-official]
+last_updated = "2026-08-21T12:11:15Z"
+last_revision = "67a666efc8524ff7abaa266f84e514aa77aee48f"
+source_type = "git"
+source = "https://github.com/anthropics/claude-plugins-official.git"
+
+[marketplaces.openai-primary-runtime]
+source_type = "local"
+source = "/Users/fenilsonani/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime"
+
+[plugins."codex-app-tools@openai-bundled"]
+enabled = true
+
+[plugins."browser@openai-bundled"]
+enabled = true
+
+[plugins."visualize@openai-bundled"]
+enabled = true
+
+[plugins."sites@openai-bundled"]
+enabled = true
+
+[plugins."clangd-lsp@claude-plugins-official"]
+enabled = true
+
+[plugins."code-simplifier@claude-plugins-official"]
+enabled = true
+
+[plugins."frontend-design@claude-plugins-official"]
+enabled = true
+
+[plugins."rust-analyzer-lsp@claude-plugins-official"]
+enabled = true
+
+[plugins."swift-lsp@claude-plugins-official"]
+enabled = true
+
+[plugins."documents@openai-primary-runtime"]
+enabled = true
+
+[plugins."pdf@openai-primary-runtime"]
+enabled = true
+
+[plugins."spreadsheets@openai-primary-runtime"]
+enabled = true
+
+[plugins."presentations@openai-primary-runtime"]
+enabled = true
+
+[plugins."template-creator@openai-primary-runtime"]
+enabled = true
+
+[plugins."computer-use@openai-bundled"]
+enabled = false
+
+[plugins."chrome@openai-bundled"]
+enabled = true
+
+[plugins."claude-access@personal"]
+enabled = true
+
+[plugins."unified-computer-use@openai-bundled"]
+enabled = true
+
+[features]
+js_repl = false
+
+[mcp_servers.node_repl]
+args = []
+command = "/Applications/ChatGPT.app/Contents/Resources/cua_node/bin/node_repl"
+startup_timeout_sec = 120
+
+[mcp_servers.node_repl.env]
+NODE_REPL_NATIVE_PIPE_CONNECT_TIMEOUT_MS = "1000"
+NODE_REPL_NODE_MODULE_DIRS = "/Applications/ChatGPT.app/Contents/Resources/cua_node/lib/node_modules"
+NODE_REPL_NODE_PATH = "/Applications/ChatGPT.app/Contents/Resources/cua_node/bin/node"
+NODE_REPL_TRUSTED_CODE_PATHS = "/Users/fenilsonani/.codex:/Applications/ChatGPT.app/Contents/Resources/cua_node/lib/node_modules"
+CODEX_HOME = "/Users/fenilsonani/.codex"
+BROWSER_USE_AVAILABLE_BACKENDS = "chrome,iab"
+BROWSER_USE_TINYSKY_ENABLED = "1"
+NODE_REPL_INSTRUCTIONS_USE_CASE_BROWSER = ""
+NODE_REPL_INSTRUCTIONS_USE_CASE_CHROME = ""
+BROWSER_USE_CODEX_APP_BUILD_FLAVOR = "prod"
+BROWSER_USE_CODEX_APP_VERSION = "26.908.70816"
+NODE_REPL_TRUSTED_SERVICES = '{"browser":"/Users/fenilsonani/.codex/plugins/cache/openai-bundled/browser/26.908.70816/scripts/browser-service.mjs"}'
+CODEX_CLI_PATH = "/Applications/ChatGPT.app/Contents/Resources/codex"
+
+
+[desktop]
+external-agent-import-sync-enabled = false
+conversationDetailMode = "STEPS_COMMANDS"
+ambient-suggestions-enabled = false
+keepRemoteControlAwakeWhilePluggedIn = true
+followUpQueueMode = "queue"
+open-local-url-in-target-preference = "external-browser"
+open-link-in-target-preference = "external-browser"
+
+[projects."/Users/fenilsonani/Developer/gmh"]
+trust_level = "trusted"
+
+[projects."/Users/fenilsonani/Documents/Codex/2026-08-20/wha"]
+trust_level = "trusted"
+
+[projects."/Users/fenilsonani/Developer/hotelatjfk"]
+trust_level = "trusted"
+
+[projects."/Users/fenilsonani/Documents/Codex/2026-08-21/create-a-scheduled-task-called-weekday"]
+trust_level = "trusted"
+
+[projects."/private/var/folders/qt/fhv0skyj67jdtmnyrw8k4xx80000gn/T/tmp.n0u0Np4VAQ"]
+trust_level = "trusted"
+
+[projects."/private/tmp/codex-hooks-port-test-20260828-001/repo"]
+trust_level = "trusted"
+
+[projects."/Users/fenilsonani"]
+trust_level = "trusted"
+
+[projects."/Users/fenilsonani/Developer/taleye/graphic/taleye"]
+trust_level = "trusted"
+
+[projects."/Users/fenilsonani/Developer"]
+trust_level = "trusted"
+
+[apps.connector_openai_codex_document_control]
+enabled = false
+
+[hooks.state]
+
+[hooks.state."/Users/fenilsonani/.codex/hooks.json:pre_tool_use:0:0"]
+trusted_hash = "sha256:3a0267dbcb210be63d87666d153fc2c81016d79fca9621482bc2a892cb44c4f7"
+
+[hooks.state."/Users/fenilsonani/.codex/hooks.json:post_tool_use:0:0"]
+trusted_hash = "sha256:22fbb9602f4c5395977f68d39deb64fc1cc1cdd72838767b3cb74e6b59fb73d9"
+
+[hooks.state."/Users/fenilsonani/.codex/hooks.json:session_start:0:0"]
+trusted_hash = "sha256:fa2fb7120d883c03e8d8e9780e1153ca54cb0e67d840a713576fb802cb9ced31"
+
+[hooks.state."/Users/fenilsonani/.codex/hooks.json:session_end:0:0"]
+trusted_hash = "sha256:22207ad7418e74c65d6ba161e906159dc0196af56d899865d8e8d7fda0b7e15a"
+
+[hooks.state."/Users/fenilsonani/.codex/hooks.json:user_prompt_submit:0:0"]
+trusted_hash = "sha256:689f8baba4f2fde385269c19158cb077255f710a14814c59be8400a49a3eac2a"
+
+[hooks.state."/Users/fenilsonani/.codex/hooks.json:stop:0:0"]
+trusted_hash = "sha256:c32e7dac9762cebddd5a0e16548b19afa22e804ef430614084369285e1c62853"
+
+[hooks.state."browser@openai-bundled:plugin.json#hooks[0]:stop:0:0"]
+trusted_hash = "sha256:317a07045dfc95aef2e80c55428a2f817e2768be867e3b1ef29a73da8636ae7f"
+
+[hooks.state."chrome@openai-bundled:plugin.json#hooks[0]:stop:0:0"]
+trusted_hash = "sha256:317a07045dfc95aef2e80c55428a2f817e2768be867e3b1ef29a73da8636ae7f"
+
+[[skills.config]]
+path = "/Users/fenilsonani/.agents/skills/brand-asset-system/SKILL.md"
+enabled = false
+
+[tui.model_availability_nux]
+gpt-6-astra = 2

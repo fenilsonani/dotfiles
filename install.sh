@@ -4,7 +4,7 @@ set -e
 DOTFILES_DIR="$(cd "$(dirname "$0")" && pwd)"
 BACKUP_DIR="$HOME/.dotfiles_backup/$(date +%Y%m%d_%H%M%S)"
 
-PACKAGES=(zsh bash git tmux nvim atuin karabiner zed btop claude)
+PACKAGES=(zsh bash git tmux nvim atuin karabiner zed btop claude codex)
 
 echo "Dotfiles installer"
 echo "==================="

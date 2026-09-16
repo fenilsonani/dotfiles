@@ -16,6 +16,7 @@ My developer config files, managed with [GNU Stow](https://www.gnu.org/software/
 | `zed` | Zed editor settings |
 | `btop` | System monitor config |
 | `claude` | Claude Code settings & global instructions |
+| `codex` | Codex settings & global instructions |
 
 ## Install
 
