@@ -348,6 +348,7 @@ export PATH="/Users/fenilsonani/.antigravity/antigravity/bin:$PATH"
 
 eval "$(atuin init zsh)"
 
+export _ZO_EXCLUDE_DIRS="$HOME:/tmp/*:/private/*:*/node_modules/*:*/.git/*"
 # zoxide must init last. Skipped under Claude Code: its shell snapshot drops _-prefixed
 # functions, leaving z and the chpwd hook calling missing __zoxide_* helpers on every cd.
 [[ -z $CLAUDECODE ]] && command -v zoxide >/dev/null && eval "$(zoxide init zsh)"
