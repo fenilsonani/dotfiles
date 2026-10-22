@@ -1,7 +1,6 @@
 [user]
 	name = Fenil Sonani
 	email = 107786545+fenilsonani@users.noreply.github.com
-	signingkey = 817B7AF541F90AB9
 [credential "https://github.com"]
 	helper = 
 	helper = !/opt/homebrew/bin/gh auth git-credential
@@ -9,7 +8,7 @@
 	helper = 
 	helper = !/opt/homebrew/bin/gh auth git-credential
 [commit]
-	gpgsign = true
+	gpgsign = false
 [coderabbit]
 	machineId = cli/7d7cb18ac51a4958b6125b168f180441
 [gitbutler]
@@ -23,6 +22,13 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
+
+[alias]
+	# prune stale worktrees, drop remote-tracking refs, delete branches already merged into origin/main
+	wtclean = !git worktree prune -v && git fetch -p && git branch --merged origin/main | grep -vE '^\\*|(^|\\s)(main|master)$' | xargs -r git branch -d
+[credential "https://sailfork.com"]
+	helper = !/Users/fenilsonani/.local/bin/sf auth git-credential
+	useHttpPath = false
 [interactive]
 	diffFilter = delta --color-only
 [delta]
