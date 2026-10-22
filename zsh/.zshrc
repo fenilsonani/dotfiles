@@ -332,6 +332,8 @@ export PATH="/opt/homebrew/opt/node@22/bin:$PATH"
 
 # Created by `pipx` on 2025-09-09 04:37:48
 export PATH="$PATH:/Users/fenilsonani/.local/bin"
+# iTerm.app/Contents/Resources/utilities ships its own it2 that shadows the uv-installed one Claude Code agent teams expect
+export PATH="$HOME/.local/priority-bin:$PATH"
 export PATH="/opt/homebrew/opt/openjdk@17/bin:$PATH"
 
 eval "$(/usr/libexec/path_helper)"
@@ -359,13 +361,88 @@ export PATH="/Users/fenilsonani/.codeium/windsurf/bin:$PATH"
 # Added by Antigravity
 export PATH="/Users/fenilsonani/.antigravity/antigravity/bin:$PATH"
 
-. "$HOME/.atuin/bin/env"
+[ -f "$HOME/.atuin/bin/env" ] && . "$HOME/.atuin/bin/env"
 
 [[ -z $CLAUDECODE ]] && command -v atuin >/dev/null && eval "$(atuin init zsh)"
+
+# Spotlight: auto-block indexing of junk dirs after install
+# Spotlight: keep node_modules/.git out of the index. NO leading underscore on the
+# function name: Claude Code's shell snapshot drops _-prefixed functions, which made
+# every agent `npm` call exit 127 ("command not found: _spotlight_block").
+spotlight_block() {
+  [ -d node_modules ] && touch node_modules/.metadata_never_index
+  [ -d .git ] && touch .git/.metadata_never_index
+  return 0
+}
+npm()   { command npm "$@";          local rc=$?; spotlight_block; return $rc; }
+npx()   { command npx "$@";          local rc=$?; spotlight_block; return $rc; }
+buni()  { command bun install "$@";  local rc=$?; spotlight_block; return $rc; }
+pnpmi() { command pnpm install "$@"; local rc=$?; spotlight_block; return $rc; }
+
+
+# Secrets live in ~/.zshrc.local (untracked; this file is in a public dotfiles repo)
+[ -f ~/.zshrc.local ] && source ~/.zshrc.local
+
+# Added by Cap
+export PATH="/Users/fenilsonani/.cap/bin:$PATH"
+# The following lines have been added by Docker Desktop to enable Docker CLI completions.
+fpath=(/Users/fenilsonani/.docker/completions $fpath)
+autoload -Uz compinit
+compinit
+# End of Docker CLI completions
+
+# --- Qwen3-Coder-30B (MLX) helpers ---
+alias qwen='mlx_lm.chat --model mlx-community/Qwen3-Coder-30B-A3B-Instruct-6bit'
+alias qwen-serve='mlx_lm.server --model mlx-community/Qwen3-Coder-30B-A3B-Instruct-6bit --port 8080'
+alias qwen-gen='mlx_lm.generate --model mlx-community/Qwen3-Coder-30B-A3B-Instruct-6bit --max-tokens 512 --temp 0.2 --prompt'
+# ------------------------------------
+
+# >>> grok installer >>>
+export PATH="$HOME/.grok/bin:$PATH"
+fpath=(~/.grok/completions/zsh $fpath)
+autoload -Uz compinit && compinit -C
+# <<< grok installer <<<
+
+alias sshair='ssh fenilsonani@air'
+alias sshvps='ssh fenilsonani@vps'
+
+# Tailscale (talks to daemon on /var/run/tailscaled.socket — works for both the
+# GUI extension and a homebrew tailscaled LaunchDaemon)
+tailscale() { /opt/homebrew/bin/tailscale --socket=/var/run/tailscaled.socket "$@" }
+alias ts='tailscale'
+alias tss='tailscale status'
+alias tsip='tailscale ip -4'
+alias tsping='tailscale ping'
+alias tsup='tailscale up'
+alias tsdown='tailscale down'
+alias tsnet='tailscale netcheck'
+
+# --- CLI shims for agents -----------------------------------------------------
+# Agents call these bare (tsc alone missed 377 times in transcripts). Resolve through the
+# repo's own node_modules via bunx instead of failing with "command not found".
+for _c in tsc vitest tsx playwright turbo wrangler; do
+  eval "$_c() { bunx $_c \"\$@\"; }"
+done; unset _c
+# keg-only libpq (psql, pg_isready) and Android platform-tools (adb) are off PATH by default
+export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
+export ANDROID_HOME="$HOME/Library/Android/sdk"
+export PATH="$ANDROID_HOME/platform-tools:$ANDROID_HOME/emulator:$PATH"
+
+# Resend CLI
+export PATH="$HOME/.resend/bin:$PATH"
 
 # t [name]: open or reattach a zmx session (default "main"); ctrl+\ detaches
 t() { zmx attach "${1:-main}"; }
 [[ -n $ZMX_SESSION ]] && PROMPT="[$ZMX_SESSION] $PROMPT"
+# ── kitty kittens (only inside kitty) ─────────────────
+if [[ "$TERM" == "xterm-kitty" ]]; then
+  alias ssh="kitten ssh"            # ssh that brings kitty features along
+  alias icat="kitten icat"          # show image: icat pic.png
+  alias kd="kitten diff"            # side-by-side diff: kd a b
+  alias kcp="kitten clipboard"      # pipe to Mac clipboard (works over ssh): cmd | kcp
+  alias kpaste="kitten clipboard --get-clipboard"
+  alias send="kitten transfer"      # copy file over current ssh: send file
+fi
 
 zstyle ':completion:*:git-checkout:*' sort false
 zstyle ':completion:*:descriptions' format '[%d]'

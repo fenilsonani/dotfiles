@@ -6,3 +6,4 @@ eval "$(atuin init bash)"
 export PATH="$PATH:/Users/fenilsonani/.lmstudio/bin"
 # End of LM Studio CLI section
 
+. "$HOME/.cargo/env"
