@@ -1,0 +1,2 @@
+# cmux reads this file too. Option sends Alt so tmux Alt+key bindings (Opt+f / Opt+Shift+f splits) still work.
+macos-option-as-alt = true

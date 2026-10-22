@@ -17,6 +17,9 @@ My developer config files, managed with [GNU Stow](https://www.gnu.org/software/
 | `btop` | System monitor config |
 | `claude` | Claude Code settings & global instructions |
 | `codex` | Codex settings & global instructions |
+| `kitty` | kitty config, ssh host colors, helper scripts |
+| `ghostty` | Ghostty config |
+| `cmux` | cmux shortcut overrides |
 
 ## Install
 

@@ -1,0 +1,47 @@
+  KITTY CHEAT SHEET                         (q to close)
+  ───────────────────────────────────────────────────────
+  WINDOWS & TABS
+    cmd+t            new tab (same folder)
+    cmd+d            split right
+    cmd+shift+d      split down
+    cmd+arrows       move between splits
+    cmd+shift+enter  zoom split / unzoom
+    cmd+r            resize split (then arrows, Esc)
+    cmd+1..5         go to tab
+    cmd+w            close split
+
+  PICK STUFF ON SCREEN (type the letter shown)
+    cmd+shift+o      open a URL
+    cmd+shift+p      insert a file path
+    cmd+shift+l      insert a whole line
+    cmd+shift+g      copy a git hash
+
+  OTHER KEYS
+    cmd+f            search scrollback (/ to search)
+    cmd+k            clear screen
+    cmd+e            emoji / unicode picker
+    cmd+shift+t      change theme
+    cmd+,            edit config     cmd+shift+r  reload it
+    cmd+/            this sheet
+
+  SSH
+    cmd+shift+s      pick a host & connect (fuzzy search)
+    cmd+t / cmd+d    inside ssh = new tab/split on SAME host, same dir
+    colors           studio=Gruvbox  air=TokyoNight  servers=RED
+
+  SCREENSHOTS
+    cmd+shift+v      paste screenshot as file path (uploads over ssh)
+
+  COMMANDS
+    ssh studio       kitty-aware ssh (auto)
+    icat pic.png     show image in terminal
+    kd a.txt b.txt   side-by-side diff
+    cmd | kcp        copy output to Mac clipboard (even over ssh)
+    kpaste           paste Mac clipboard
+    send file        copy file over current ssh session
+
+  SCRIPT KITTY
+    kitten @ launch --location=vsplit btop
+    kitten @ launch --type=tab nvim
+    kitten @ set-tab-title API
+    kitten @ ls                    (everything as JSON)
