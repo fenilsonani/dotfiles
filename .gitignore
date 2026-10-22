@@ -2,3 +2,5 @@
 *.swp
 *.swo
 *~
+zed/.config/zed/prompts/
+*.bak
