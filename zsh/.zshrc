@@ -74,7 +74,6 @@ plugins=(
   git
   zsh-autosuggestions
   zsh-syntax-highlighting
-  z
   docker
   docker-compose
   kubectl
@@ -348,3 +347,7 @@ export PATH="/Users/fenilsonani/.antigravity/antigravity/bin:$PATH"
 . "$HOME/.atuin/bin/env"
 
 eval "$(atuin init zsh)"
+
+# zoxide must init last. Skipped under Claude Code: its shell snapshot drops _-prefixed
+# functions, so cd() would call a missing __zoxide_z and break every agent cd.
+[[ -z $CLAUDECODE ]] && command -v zoxide >/dev/null && eval "$(zoxide init zsh --cmd cd)"
