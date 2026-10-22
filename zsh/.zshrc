@@ -349,5 +349,5 @@ export PATH="/Users/fenilsonani/.antigravity/antigravity/bin:$PATH"
 eval "$(atuin init zsh)"
 
 # zoxide must init last. Skipped under Claude Code: its shell snapshot drops _-prefixed
-# functions, so cd() would call a missing __zoxide_z and break every agent cd.
-[[ -z $CLAUDECODE ]] && command -v zoxide >/dev/null && eval "$(zoxide init zsh --cmd cd)"
+# functions, leaving z and the chpwd hook calling missing __zoxide_* helpers on every cd.
+[[ -z $CLAUDECODE ]] && command -v zoxide >/dev/null && eval "$(zoxide init zsh)"
