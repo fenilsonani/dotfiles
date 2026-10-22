@@ -118,6 +118,11 @@ alias ccc='claude --dangerously-skip-permissions --continue'
 alias cx='codex --dangerously-bypass-approvals-and-sandbox'
 alias cxr='codex resume --dangerously-bypass-approvals-and-sandbox'
 alias cxc='codex resume --last --dangerously-bypass-approvals-and-sandbox'
+# Remote Control server for the current directory (adds it to the phone's "Choose directory" list)
+alias rc='claude remote-control --permission-mode bypassPermissions'
+# Same, but in a detached zmx session so it survives closing the terminal: rcd [name]
+# zmx run feeds commands /dev/null as stdin, so create the session with run, then send the command for a real TTY (trust prompt)
+rcd() { local n="${1:-${PWD##*/}}"; zmx run "rc-$n" true >/dev/null && zmx send "rc-$n" "claude remote-control --name '$n' --permission-mode bypassPermissions"$'\r' && echo "Remote Control started in zmx session rc-$n (attach: t rc-$n)"; }
 
 # Navigation aliases
 alias ..='cd ..'
@@ -347,6 +352,10 @@ export PATH="/Users/fenilsonani/.antigravity/antigravity/bin:$PATH"
 . "$HOME/.atuin/bin/env"
 
 eval "$(atuin init zsh)"
+
+# t [name]: open or reattach a zmx session (default "main"); ctrl+\ detaches
+t() { zmx attach "${1:-main}"; }
+[[ -n $ZMX_SESSION ]] && PROMPT="[$ZMX_SESSION] $PROMPT"
 
 export _ZO_EXCLUDE_DIRS="$HOME:/tmp/*:/private/*:*/node_modules/*:*/.git/*"
 # zoxide must init last. Skipped under Claude Code: its shell snapshot drops _-prefixed
