@@ -72,6 +72,7 @@ HIST_STAMPS="yyyy-mm-dd"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
   git
+  fzf-tab
   zsh-autosuggestions
   zsh-syntax-highlighting
   docker
@@ -136,10 +137,19 @@ alias dd='cd ~/Developer/ && ls'
 alias sshfenil='ssh fenilsonani@159.195.74.166'
 
 # List directory contents
-alias l='ls -lah'
-alias la='ls -lAh'
-alias ll='ls -lh'
-alias ls='ls -G'
+# Agents parse ls output, so eza only replaces ls outside Claude Code
+if [[ -z $CLAUDECODE ]] && (( $+commands[eza] )); then
+  alias ls='eza --group-directories-first'
+  alias l='eza -la --git --group-directories-first'
+  alias la='eza -la --group-directories-first'
+  alias ll='eza -l --git --group-directories-first'
+  alias lt='eza --tree --level=2 --git-ignore'
+else
+  alias l='ls -lah'
+  alias la='ls -lAh'
+  alias ll='ls -lh'
+  alias ls='ls -G'
+fi
 alias lsa='ls -lah'
 
 # Git aliases
@@ -351,12 +361,55 @@ export PATH="/Users/fenilsonani/.antigravity/antigravity/bin:$PATH"
 
 . "$HOME/.atuin/bin/env"
 
-eval "$(atuin init zsh)"
+[[ -z $CLAUDECODE ]] && command -v atuin >/dev/null && eval "$(atuin init zsh)"
 
 # t [name]: open or reattach a zmx session (default "main"); ctrl+\ detaches
 t() { zmx attach "${1:-main}"; }
 [[ -n $ZMX_SESSION ]] && PROMPT="[$ZMX_SESSION] $PROMPT"
 
+zstyle ':completion:*:git-checkout:*' sort false
+zstyle ':completion:*:descriptions' format '[%d]'
+zstyle ':completion:*' menu no
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always --group-directories-first $realpath'
+zstyle ':fzf-tab:*' switch-group '<' '>'
+
+export FZF_DEFAULT_COMMAND='fd --type f --hidden --exclude .git'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_ALT_C_COMMAND='fd --type d --hidden --exclude .git'
+
+# Hook-based tools init only outside Claude Code (its snapshot drops _-prefixed functions); agents get mise shims instead
+if [[ -z $CLAUDECODE ]]; then
+  (( $+commands[mise] )) && eval "$(mise activate zsh)"
+  # key-bindings only: fzf's completion.zsh would steal Tab from fzf-tab; empty CTRL_R leaves Ctrl+R to atuin
+  FZF_CTRL_R_COMMAND=
+  [[ -f /opt/homebrew/opt/fzf/shell/key-bindings.zsh ]] && source /opt/homebrew/opt/fzf/shell/key-bindings.zsh
+else
+  (( $+commands[mise] )) && eval "$(mise activate zsh --shims)"
+fi
+
+alias lg='lazygit'
+
+# y: yazi that leaves the shell in the directory you quit in
+y() {
+  local tmp cwd
+  tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
+  command yazi "$@" --cwd-file="$tmp"
+  IFS= read -r -d '' cwd < "$tmp"
+  [ "$cwd" != "$PWD" ] && [ -d "$cwd" ] && builtin cd -- "$cwd"
+  command rm -f -- "$tmp"
+}
+
+# p [query]: fuzzy-pick a zoxide dir, cd there, and attach its zmx session (named after the dir)
+p() {
+  local d
+  d=$(zoxide query -l | fzf --query="$*" --select-1 --height=45% --layout=reverse \
+    --preview='eza -1 --color=always --group-directories-first {}') || return
+  builtin cd -- "$d" || return
+  [[ -n $ZMX_SESSION ]] || zmx attach "${d:t}"
+}
+
+# Setting this replaces zoxide's built-in fzf flags, so they are restated with an eza preview
+export _ZO_FZF_OPTS="--exact --no-sort --bind=ctrl-z:ignore,btab:up,tab:down --cycle --keep-right --border=sharp --height=45% --info=inline --layout=reverse --tabstop=1 --exit-0 --preview='eza -1 --color=always --group-directories-first {2..}' --preview-window=down,30%,sharp"
 export _ZO_EXCLUDE_DIRS="$HOME:/tmp/*:/private/*:*/node_modules/*:*/.git/*"
 # zoxide must init last. Skipped under Claude Code: its shell snapshot drops _-prefixed
 # functions, leaving z and the chpwd hook calling missing __zoxide_* helpers on every cd.
