@@ -83,6 +83,11 @@
             "type": "command",
             "command": "bash ~/.claude/hooks/no-emoji.sh",
             "timeout": 5
+          },
+          {
+            "type": "command",
+            "command": "bash ~/.claude/hooks/no-attribution.sh",
+            "timeout": 5
           }
         ]
       },
@@ -247,5 +252,10 @@
       "autoCompactWindow": 100000
     }
   },
-  "autoContinueAtUsageLimit": true
+  "autoContinueAtUsageLimit": true,
+  "attribution": {
+    "commit": "",
+    "pr": "",
+    "sessionUrl": false
+  }
 }
