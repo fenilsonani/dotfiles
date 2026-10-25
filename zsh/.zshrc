@@ -136,6 +136,9 @@ alias dd='cd ~/Developer/ && ls'
 # SSH alias to the server
 alias sshfenil='ssh fenilsonani@159.195.74.166'
 
+# Raw HID test for keyboard modifier keys (Keychron left Cmd debugging)
+alias keytest='~/.local/bin/keytest'
+
 # List directory contents
 # Agents parse ls output, so eza only replaces ls outside Claude Code
 if [[ -z $CLAUDECODE ]] && (( $+commands[eza] )); then

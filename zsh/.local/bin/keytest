@@ -1,0 +1,23 @@
+#!/usr/bin/env swift
+import Foundation
+import IOKit.hid
+
+let names: [UInt32: String] = [0xE0: "L-Ctrl", 0xE1: "L-Shift", 0xE2: "L-Option", 0xE3: "L-Command",
+                               0xE4: "R-Ctrl", 0xE5: "R-Shift", 0xE6: "R-Option", 0xE7: "R-Command"]
+let mgr = IOHIDManagerCreate(kCFAllocatorDefault, IOOptionBits(kIOHIDOptionsTypeNone))
+IOHIDManagerSetDeviceMatching(mgr, [kIOHIDDeviceUsagePageKey: kHIDPage_GenericDesktop,
+                                    kIOHIDDeviceUsageKey: kHIDUsage_GD_Keyboard] as CFDictionary)
+IOHIDManagerRegisterInputValueCallback(mgr, { _, _, _, value in
+    let el = IOHIDValueGetElement(value)
+    let page = IOHIDElementGetUsagePage(el), usage = IOHIDElementGetUsage(el)
+    guard page == UInt32(kHIDPage_KeyboardOrKeypad), let n = names[usage] else { return }
+    let dev = IOHIDElementGetDevice(el)
+    let product = IOHIDDeviceGetProperty(dev, kIOHIDProductKey as CFString) as? String ?? "?"
+    print("\(product.trimmingCharacters(in: .whitespaces)): \(n) \(IOHIDValueGetIntegerValue(value) == 1 ? "down" : "up")")
+    fflush(stdout)
+}, nil)
+IOHIDManagerScheduleWithRunLoop(mgr, CFRunLoopGetCurrent(), CFRunLoopMode.defaultMode.rawValue)
+let r = IOHIDManagerOpen(mgr, IOOptionBits(kIOHIDOptionsTypeNone))
+print(r == kIOReturnSuccess ? "Listening 20s: press Left Cmd, then Right Cmd, on the Keychron..." : "Open failed (0x\(String(r, radix: 16))): grant Input Monitoring to your terminal")
+fflush(stdout)
+CFRunLoopRunInMode(.defaultMode, 20, false)
