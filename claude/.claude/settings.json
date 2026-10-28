@@ -1,5 +1,6 @@
 {
   "env": {
+    "CLAUDE_CODE_SHELL": "/opt/homebrew/bin/bash",
     "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1",
     "CLAUDE_CODE_SUBAGENT_MODEL": "claude-haiku-5-5",
     "CLAUDE_CODE_DISABLE_DANGEROUS_RM_TIMEOUT": "1"
