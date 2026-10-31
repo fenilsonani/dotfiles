@@ -39,7 +39,7 @@
 - End-of-task report, once: before/after (measurable where possible), what changed, Decisions, what was deliberately left alone, what needs my hands. No play-by-play.
 - End the turn on that report. In-scope follow-ups get done, not offered.
 - Problems and risks stated plainly and early. Own a mistake once, then move on.
-- No emoji in chat, code, commits, docs, or UI (icons come from lucide/SVG).
+- No emoji in chat, code, commits, docs, or UI (icons come from Phosphor/SVG).
 - Anything sent under my name (Slack, email, issue/PR comments, replies, READMEs, posts) goes through the writing-style skill. Your own reports and commit messages stay standard English.
 
 ## Git & shipping
@@ -61,4 +61,4 @@
 - Obey the repo formatter config exactly; never reorder imports by hand.
 - Money is never a float (decimal or integer cents + currency column). Calendar dates are YYYY-MM-DD strings; instants stored UTC, rendered in the user's timezone.
 - Tests assert concrete values and error codes: no snapshots, no bare toThrow, no test.skip without a reason. Integration tests hit a real database, not mocks. Never re-record a snapshot or baseline to make a diff go away.
-- UI: shadcn primitives + lucide + semantic Tailwind tokens; every screen handles loading/error/empty; no mock data; American English copy. New UI: load frontend-design first, build 2-3 variants, ship the strongest, and leave the others side by side for me to swap in. Nothing that looks like an AI-generated template.
+- UI: shadcn primitives + Phosphor icons (regular weight, one import per icon) + semantic Tailwind tokens; every screen handles loading/error/empty; no mock data; American English copy. New UI: load frontend-design first, build 2-3 variants, ship the strongest, and leave the others side by side for me to swap in. Nothing that looks like an AI-generated template.
