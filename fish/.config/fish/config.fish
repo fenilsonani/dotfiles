@@ -229,4 +229,12 @@ command -q mise; and mise activate fish | source
 set -gx FZF_CTRL_R_COMMAND
 command -q fzf; and fzf --fish | source
 command -q atuin; and atuin init fish | source
-command -q zoxide; and zoxide init fish | source
+if command -q zoxide
+    # --cmd cd: plain `cd foo` falls back to the zoxide database when ./foo does not exist
+    zoxide init fish --cmd cd | source
+    alias z cd
+    alias zi cdi
+    # zoxide's own Tab completion lists only child dirs; add database matches for the typed word
+    complete -c __zoxide_z -f -n 'test (count (commandline -xpc)) -eq 1; and test -n (commandline -ct)' \
+        -a '(zoxide query -l --exclude $PWD -- (commandline -ct) 2>/dev/null | string replace -r \'$\' /)'
+end
