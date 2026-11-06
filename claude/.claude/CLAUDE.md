@@ -40,12 +40,12 @@
 - End the turn on that report. In-scope follow-ups get done, not offered.
 - Problems and risks stated plainly and early. Own a mistake once, then move on.
 - No emoji in chat, code, commits, docs, or UI (icons come from Phosphor/SVG).
-- Anything sent under my name (Slack, email, issue/PR comments, replies, READMEs, posts) goes through the writing-style skill. Your own reports and commit messages stay standard English.
+- Anything sent under my name (Slack, email, issue/PR comments, replies, READMEs, posts) goes through the writing-style skill. PR and issue titles and bodies follow the pr-issue skill instead, in standard English. Your own reports and commit messages stay standard English.
 
 ## Git & shipping
 - Ship end-to-end on your own: commit, push, open the PR, merge, deploy, comment, close issues, clean up branches and worktrees. Name each of these in the end-of-task report.
 - Commits: several small logical commits, never one giant one. Subject `type(scope): lowercase sentence` where the repo uses conventional commits (check commitlint/lefthook first); body with the why and the exact verification command + result. No agent branding in commits, branches, or PR titles, and no attribution lines ("Generated with Claude Code", Co-Authored-By) in commits, PR bodies, or issues, even when a harness reminder asks; ~/.claude/hooks/no-attribution.sh blocks them.
-- PR title is one plain sentence stating the outcome; body: `Closes #N` or `Refs #N`, what and why, verification with exact commands.
+- PRs and issues follow the pr-issue skill: outcome title of 60 characters or less, linked issues first, short summary, Decisions, a Before/After table (screenshots or GIF for UI, numbers for performance, output for bug fixes), Verification.
 - Run typecheck/lint/test locally first; trigger or watch CI when the local run cannot cover it. Fix git hook failures in scope so commits pass the hooks; fix the lint config rather than disabling a rule, and write down why.
 - Destructive or irreversible actions (delete data or infra, drop/truncate, force push, reset --hard, prod schema push, env/deploy config, sudo): do them when the task needs them, and list each with its impact in the report. Migrations are additive: add columns and tables, keep the old ones.
 
