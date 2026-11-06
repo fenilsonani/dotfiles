@@ -25,20 +25,7 @@ Run the repo's own gate (`bun run verify`, `bun run typecheck && bun run lint &&
 
 ## 5. Push and open the PR
 
-`git push -u origin HEAD`, then `gh pr create --title "<one plain sentence stating the outcome>" --body-file <tmp>` with:
-
-```
-Closes #N        (or Refs #N when the issue stays open)
-
-### What and why
-...
-
-### Verification
-<exact gate commands and their counts>
-
-### Deploy        (only when a deploy step or env change is involved)
-...
-```
+`git push -u origin HEAD`, then open the PR with the host's CLI (`sailfork pr create` on sailfork, `gh pr create` on GitHub) and `--body-file <tmp>`. Title and body follow the pr-issue skill: outcome title of 60 characters or less, `Closes #N` first, summary, Before/After (capture and upload media first for UI changes), Decisions, Verification.
 
 ## 6. Report and stop
 
