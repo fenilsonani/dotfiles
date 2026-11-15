@@ -7,6 +7,8 @@ Slop is mostly a content problem. Text with nothing specific to say falls back o
 
 The target is a reader who believes a person wrote it because the text says something particular. Detector scores are a side effect. Hill-climbing on a detector teaches the prose to be weird, not good.
 
+This pass edits a human draft. Text a model wrote from scratch still reads as model output to a trained detector (Pangram scored a fully deslopped from-scratch essay 100% AI), because those detectors read token-level choices that no tell list or rhythm metric covers. When there is no human draft, say so in the hand-back.
+
 ## 1. Pick the voice
 
 - **Going out under Fenil's name**: load the `writing-style` skill too. It owns his sentences. This skill owns the editing process.
